@@ -10,6 +10,8 @@ This application is a Next.js project designed to manage restaurant data, includ
 - **Restaurant Display:** Authenticated users can view a list of restaurants with details such as name, photo, contact information (phone, website), and location.
 - **Email Invitation System:** Allows authenticated users to send invitation emails to new users, providing them with a link to access the application.
 - **Authenticated Access:** Generates a unique, hashed link for authenticated users to access the restaurant dashboard, ensuring secure navigation.
+- **Tour Activities Search:** Users can search for tourist activities by city and keywords.
+- **Download Tour Data:** Users can download the search results for tourist activities as an Excel file.
 
 ## Project Structure Overview
 
@@ -24,6 +26,14 @@ This is the main page component for the restaurant dashboard.
 - Includes an expandable section for sending email invitations.
 - Interacts with `/api/restaurants` for searching and fetching restaurant data.
 - Interacts with `/api/send-invite` for sending invitation emails.
+
+### `data/app/tours/page.tsx`
+
+This page allows users to find and manage tourist activities.
+- It provides a user interface to input multiple cities and keyword groups for searching tourist attractions.
+- It communicates with the `/api/tours` endpoint to fetch data from the Google Places API based on the search criteria.
+- Displays the results in a table and provides an option to download the data as an Excel file via the `/api/download` endpoint.
+- Shows the progress of the data fetching process.
 
 ### `data/app/components/`
 
@@ -63,6 +73,20 @@ This directory contains Next.js API routes that handle backend logic:
     - Accepts `email` and `link` in the request body.
     - Calls the `sendInviteEmail` function from `app/lib/email.ts` to send the invitation.
     - Returns a success or error message based on the email sending status.
+
+- **`tours/route.ts`**:
+  - **`POST` handler:**
+    - Accepts `city` and `keywords` in the request body.
+    - Searches for tourist attractions using the Google Places API.
+    - It can handle paginated results from the API to fetch a comprehensive list.
+    - Logs the used keywords to a local file (`data/tour_keywords.txt`).
+    - Returns a detailed list of places including name, address, and contact information.
+
+- **`download/route.ts`**:
+  - **`POST` handler:**
+    - Accepts a JSON array of tour places.
+    - Generates an Excel file (`.xlsx`) from the data.
+    - Returns the file as a buffer, allowing the client to download it.
 
 ### `data/app/lib/email.ts`
 
