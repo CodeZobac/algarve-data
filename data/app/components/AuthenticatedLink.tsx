@@ -21,12 +21,18 @@ export default function AuthenticatedLink() {
   const hash = generateHash(secret);
 
   return (
-    <div className="text-center">
-      <Link 
-        href={`/restaurants/${hash}`} 
+    <div className="text-center space-y-4">
+      <Link
+        href={`/restaurants/${hash}`}
         className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-slate-700 bg-slate-100 border border-slate-300 rounded-lg hover:bg-slate-200 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-600 dark:hover:text-white transition-colors"
       >
         Go to Restaurant Dashboard
+      </Link>
+      <Link
+        href={`/tours`}
+        className="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-slate-700 bg-slate-100 border border-slate-300 rounded-lg hover:bg-slate-200 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:bg-slate-700 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-600 dark:hover:text-white transition-colors"
+      >
+        Go to Tours Page
       </Link>
     </div>
   );
