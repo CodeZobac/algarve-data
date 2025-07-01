@@ -1,0 +1,27 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "String"
+        },
+        "tagsByResource": {
+            "type": "Object"
+        },
+        "dataLocation": {
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Communication/emailServices",
+            "apiVersion": "2023-03-01-preview",
+            "name": "[parameters('name')]",
+            "location": "global",
+            "tags": "[ if(contains(parameters('tagsByResource'), 'Microsoft.Communication/EmailServices'), parameters('tagsByResource')['Microsoft.Communication/EmailServices'], json('{}')) ]",
+            "properties": {
+                "dataLocation": "[parameters('dataLocation')]"
+            }
+        }
+    ]
+}
